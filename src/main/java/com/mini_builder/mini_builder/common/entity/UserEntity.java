@@ -35,7 +35,7 @@ public class UserEntity extends BaseEntityAbstract {
     @Column(name = "withdraw", nullable = false, columnDefinition = "TINYINT", length = 4)
     private boolean withdraw;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
