@@ -60,5 +60,4 @@ public class SwaggerConfig {
         authorizationScopes[0] = authorizationScope;
         return singletonList(new SecurityReference("Authorization", authorizationScopes));
     }
-
 }
