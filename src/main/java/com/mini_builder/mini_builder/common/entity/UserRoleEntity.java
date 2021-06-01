@@ -16,6 +16,10 @@ import javax.persistence.*;
 @Table(name = "user_role")
 public class UserRoleEntity extends BaseEntityAbstract {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userRoleId;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;

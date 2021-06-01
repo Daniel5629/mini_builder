@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.mini_builder.mini_builder.common.entity.QRoleEntity.roleEntity;
@@ -28,6 +29,7 @@ public class CustomUserDetailService implements UserDetailsService {
     private final JPAQueryFactory query;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         UserDetailDto userDetailDto = query.select(
@@ -47,7 +49,9 @@ public class CustomUserDetailService implements UserDetailsService {
         List<String> roleNames = query.select(roleEntity.roleName)
                 .from(roleEntity)
                 .leftJoin(userRoleEntity)
+                .on(userRoleEntity.roleEntity.eq(roleEntity))
                 .leftJoin(userEntity)
+                .on(userEntity.eq(userRoleEntity.userEntity))
                 .fetch();
 
         List<SimpleGrantedAuthority> roleNameList = roleNames.stream().map(SimpleGrantedAuthority::new).collect(toList());
