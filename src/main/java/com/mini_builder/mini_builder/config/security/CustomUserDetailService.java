@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,34 +31,33 @@ public class CustomUserDetailService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        UserDetailDto userDetailDto = query.select(
+        List<UserDetailDto> userDetailDtoList = query.select(
                 Projections.constructor(
                         UserDetailDto.class,
                         userEntity.userId,
                         userEntity.username,
-                        userEntity.password
+                        userEntity.password,
+                        roleEntity.roleName
                 )
         )
                 .from(userEntity)
+                .leftJoin(userEntity.userRoleEntityList, userRoleEntity)
+                .leftJoin(userRoleEntity.roleEntity, roleEntity)
                 .where(userEntity.username.eq(email))
-                .fetchOne();
-
-        if (userDetailDto == null) throw new UsernameNotFoundException("해당 유저가 존재하지 않습니다.");
-
-        List<String> roleNames = query.select(roleEntity.roleName)
-                .from(roleEntity)
-                .leftJoin(userRoleEntity)
-                .on(userRoleEntity.roleEntity.eq(roleEntity))
-                .leftJoin(userEntity)
-                .on(userEntity.eq(userRoleEntity.userEntity))
                 .fetch();
 
-        List<SimpleGrantedAuthority> roleNameList = roleNames.stream().map(SimpleGrantedAuthority::new).collect(toList());
+        if (userDetailDtoList == null) throw new UsernameNotFoundException("해당 유저가 존재하지 않습니다.");
+
+        List<SimpleGrantedAuthority> roleNameList = userDetailDtoList.stream()
+                .map(list -> new SimpleGrantedAuthority(list.getRoleName()))
+                .collect(toList());
+
+        UserDetailDto user = userDetailDtoList.get(0);
 
         CustomUserDetail userDetail = CustomUserDetail.builder()
-                .userId(userDetailDto.getUserId())
-                .username(userDetailDto.getUsername())
-                .password(userDetailDto.getPassword())
+                .userId(user.getUserId())
+                .username(user.getUsername())
+                .password(user.getPassword())
                 .authorities(roleNameList)
                 .build();
 
@@ -73,12 +71,14 @@ public class CustomUserDetailService implements UserDetailsService {
         private Long userId;
         private String username;
         private String password;
+        private String roleName;
 
         @QueryProjection
-        public UserDetailDto(Long userId, String username, String password) {
+        public UserDetailDto(Long userId, String username, String password, String roleName) {
             this.userId = userId;
             this.username = username;
             this.password = password;
+            this.roleName = roleName;
         }
     }
 }

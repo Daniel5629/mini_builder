@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,13 +16,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public abstract class BaseEntityAbstract implements Serializable {
 
-//    @CreatedDate
+    @CreatedDate
     private LocalDateTime created_at;
 
-//    @LastModifiedDate
+    @LastModifiedDate
     private LocalDateTime updated_at;
 
-    private String created_by;
+    private Long created_by;
 
-    private String updated_by;
+    private Long updated_by;
 }

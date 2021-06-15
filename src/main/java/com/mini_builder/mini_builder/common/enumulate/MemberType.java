@@ -1,4 +1,4 @@
-package com.mini_builder.mini_builder.common.status;
+package com.mini_builder.mini_builder.common.enumulate;
 
 public enum MemberType {
     CLIENT("CLIENT", "의뢰자"),

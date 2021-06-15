@@ -1,9 +1,10 @@
-package com.mini_builder.mini_builder.common.status;
+package com.mini_builder.mini_builder.common.enumulate;
 
 public enum UserType {
     SUPER_ADMIN("SUPER_ADMIN", "최종 관리자"),
     ADMIN("ADMIN", "관리자"),
-    MEMBER("MEMBER", "일반회원");
+    MEMBER("MEMBER", "일반회원"),
+    GUEST("GUEST", "게스트");
 
     private final String code;
     private final String name;

@@ -2,12 +2,14 @@ package com.mini_builder.mini_builder.config.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,10 +22,6 @@ public class CustomUserDetail implements UserDetails {
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
-
-    public Long getUserId() {
-        return userId;
-    }
 
     @Override
     public String getUsername() {

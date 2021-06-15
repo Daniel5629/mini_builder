@@ -14,34 +14,16 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto extends BaseDtoAbstract {
-
-    private Long userId;
-
-    private String userType;
-
-    private boolean enabled;
-
-    private LocalDateTime lastPasswordChanged;
-
-    private boolean withdraw;
+public class SignUpDto extends BaseDtoAbstract {
 
     private String username;
 
     private String password;
 
-    private boolean passwordExpired;
-
     public UserEntity toEntity() {
         return UserEntity.builder()
-                .userId(userId)
-                .userType(userType)
-                .enabled(enabled)
-                .lastPasswordChanged(lastPasswordChanged)
-                .withdraw(withdraw)
                 .username(username)
                 .password(password)
-                .passwordExpired(passwordExpired)
                 .build();
     }
 

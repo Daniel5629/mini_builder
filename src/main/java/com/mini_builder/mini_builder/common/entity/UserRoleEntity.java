@@ -21,10 +21,6 @@ public class UserRoleEntity extends BaseEntityAbstract {
     private Long userRoleId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "role_id")
     private RoleEntity roleEntity;
 
