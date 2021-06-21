@@ -2,9 +2,13 @@ package com.mini_builder.mini_builder.user.service;
 
 import com.mini_builder.mini_builder.common.entity.UserEntity;
 import com.mini_builder.mini_builder.user.controller.dto.UserDto;
+import com.mini_builder.mini_builder.user.controller.dto.UserInfoDto;
+import com.mini_builder.mini_builder.user.repository.UserQdRepository;
 import com.mini_builder.mini_builder.user.repository.UserRepository;
 import com.mini_builder.mini_builder.user.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +23,7 @@ public class UserServiceImpl implements UserService{
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final UserQdRepository userQdRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,6 +45,12 @@ public class UserServiceImpl implements UserService{
         UserEntity userEntity = userRepository.save(userDto.toEntity());
 
         return Optional.of(userEntity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<UserInfoDto> getUserInfos(Pageable pageable) {
+        return userQdRepository.getUserInfos(pageable);
     }
 
     @Override

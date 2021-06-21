@@ -1,4 +1,4 @@
-package com.mini_builder.mini_builder.common.enumulate;
+package com.mini_builder.mini_builder.common.enumerate;
 
 public enum UserType {
     SUPER_ADMIN("SUPER_ADMIN", "최종 관리자"),

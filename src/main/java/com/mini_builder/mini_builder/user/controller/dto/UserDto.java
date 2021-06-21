@@ -3,6 +3,7 @@ package com.mini_builder.mini_builder.user.controller.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mini_builder.mini_builder.common.base.BaseDtoAbstract;
 import com.mini_builder.mini_builder.common.entity.UserEntity;
+import com.mini_builder.mini_builder.common.enumerate.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class UserDto extends BaseDtoAbstract {
 
     private Long userId;
 
-    private String userType;
+    private UserType userType;
 
     private boolean enabled;
 

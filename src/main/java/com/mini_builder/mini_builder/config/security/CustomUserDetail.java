@@ -21,6 +21,8 @@ public class CustomUserDetail implements UserDetails {
 
     private String password;
 
+    private String memberName;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     @Override
