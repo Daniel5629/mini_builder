@@ -12,15 +12,11 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseEntityAbstract implements Serializable {
+public class BaseTimeEntity implements Serializable {
 
-//    @CreatedDate
+    //    @CreatedDate
     private LocalDateTime created_at;
 
-//    @LastModifiedDate
+    //    @LastModifiedDate
     private LocalDateTime updated_at;
-
-    private String created_by;
-
-    private String updated_by;
 }

@@ -1,6 +1,7 @@
 package com.mini_builder.mini_builder.common.entity;
 
-import com.mini_builder.mini_builder.common.base.BaseEntityAbstract;
+import com.mini_builder.mini_builder.common.base.BaseEntity;
+import com.mini_builder.mini_builder.common.status.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,16 +16,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user", uniqueConstraints = {@UniqueConstraint(name = "uk_username", columnNames = {"username"})})
-public class UserEntity extends BaseEntityAbstract {
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "uk_username", columnNames = {"username"})})
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Long id;
 
     @Column(name = "user_type", nullable = false)
-    private String userType;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT", length = 4)
     private boolean enabled;

@@ -1,7 +1,7 @@
 package com.mini_builder.mini_builder.user.controller.dto;
 
 import com.mini_builder.mini_builder.common.base.BaseDtoAbstract;
-import com.mini_builder.mini_builder.common.entity.UserEntity;
+import com.mini_builder.mini_builder.common.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +31,9 @@ public class UserDto extends BaseDtoAbstract {
 
     private boolean passwordExpired;
 
-    public UserEntity toEntity() {
-        return UserEntity.builder()
-                .userId(userId)
+    public User toEntity() {
+        return User.builder()
+                .id(userId)
                 .userType(userType)
                 .enabled(enabled)
                 .lastPasswordChanged(lastPasswordChanged)
