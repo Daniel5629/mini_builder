@@ -1,14 +1,47 @@
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3307/mini_builder?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: root
+#    password: 1234
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    open-in-view: false
+#    show-sql: true
+#    hibernate:
+#      format_sql: true
+#      ddl-auto: validate
+
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/mini_builder?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
+    url: jdbc:h2:~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.H2Dialect
     open-in-view: false
-    show-sql: true
     hibernate:
-      format_sql: true
-      ddl-auto: validate
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  server:
+    compression:
+      enabled: true
+      excluded-user-agents:
+      mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,image/jpeg,image/png,application/font-woff
+#      min-response-size: 6144 # 6kb
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace

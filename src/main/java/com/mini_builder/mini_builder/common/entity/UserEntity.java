@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(name = "uk_username", columnNames = {"username"})})
 public class UserEntity extends BaseEntityAbstract {
 
     @Id
@@ -35,7 +35,7 @@ public class UserEntity extends BaseEntityAbstract {
     @Column(name = "withdraw", nullable = false, columnDefinition = "TINYINT", length = 4)
     private boolean withdraw;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Column(name = "password", nullable = false)
